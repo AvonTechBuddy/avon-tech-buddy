@@ -189,7 +189,7 @@ const HomePage = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 z-0 opacity-20"
           style={{

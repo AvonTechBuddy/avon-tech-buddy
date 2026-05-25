@@ -1,8 +1,18 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAnchorNav } from '@/hooks/useAnchorNav';
+
+const QUICK_LINKS = [
+  { id: 'services', label: 'Services' },
+  { id: 'pricing', label: 'Pricing' },
+  { id: 'how-it-works', label: 'How It Works' },
+  { id: 'booking', label: 'Book Now' },
+];
 
 const Footer = () => {
+  const { handleAnchor, anchorHref } = useAnchorNav();
+
   const policyLinks = [
     { name: 'Privacy Policy', to: '/privacy' },
     { name: 'Terms of Service', to: '/terms' },
@@ -49,26 +59,17 @@ const Footer = () => {
           <div>
             <span className="font-semibold text-card-foreground block mb-3">Quick Links</span>
             <div className="space-y-2 text-sm">
-              <p>
-                <Link to="/#services" className="text-muted-foreground hover:text-accent transition-default">
-                  Services
-                </Link>
-              </p>
-              <p>
-                <Link to="/#pricing" className="text-muted-foreground hover:text-accent transition-default">
-                  Pricing
-                </Link>
-              </p>
-              <p>
-                <Link to="/#how-it-works" className="text-muted-foreground hover:text-accent transition-default">
-                  How It Works
-                </Link>
-              </p>
-              <p>
-                <Link to="/book" className="text-muted-foreground hover:text-accent transition-default">
-                  Book Now
-                </Link>
-              </p>
+              {QUICK_LINKS.map(({ id, label }) => (
+                <p key={id}>
+                  <a
+                    href={anchorHref(id)}
+                    onClick={(e) => handleAnchor(e, id)}
+                    className="text-muted-foreground hover:text-accent transition-default"
+                  >
+                    {label}
+                  </a>
+                </p>
+              ))}
             </div>
           </div>
 

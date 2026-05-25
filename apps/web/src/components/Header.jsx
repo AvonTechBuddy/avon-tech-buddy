@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button.jsx';
 import { Menu, X, Phone } from 'lucide-react';
+import { useAnchorNav } from '@/hooks/useAnchorNav';
 
 const SECTIONS = [
   { id: 'home',         label: 'Home' },
@@ -16,9 +16,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const location = useLocation();
-  const navigate = useNavigate();
-  const isLanding = location.pathname === '/';
+  const { isLanding, handleAnchor, anchorHref } = useAnchorNav();
 
   // Track scroll position for the shrink-on-scroll effect
   useEffect(() => {
@@ -61,23 +59,11 @@ export default function Header() {
     return () => observer.disconnect();
   }, [isLanding]);
 
-  const handleAnchor = useCallback((e, id) => {
+  const onAnchorClick = (e, id) => {
     setMobileMenuOpen(false);
-    if (isLanding) {
-      e.preventDefault();
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Push hash without a full reload
-        history.pushState(null, '', `#${id}`);
-        setActiveSection(id);
-      }
-    } else {
-      // From a sub-route (e.g. /booking deep link) — navigate to landing with hash
-      e.preventDefault();
-      navigate(`/#${id}`);
-    }
-  }, [isLanding, navigate]);
+    handleAnchor(e, id);
+    if (isLanding) setActiveSection(id);
+  };
 
   return (
     <>
@@ -97,7 +83,7 @@ export default function Header() {
             {/* Logo */}
             <a
               href={isLanding ? '#home' : '/'}
-              onClick={(e) => isLanding ? handleAnchor(e, 'home') : null}
+              onClick={(e) => isLanding ? onAnchorClick(e, 'home') : null}
               className="flex items-center gap-3 group"
             >
               <div className={`rounded-xl bg-primary flex items-center justify-center shadow-[0_0_18px_rgba(0,217,255,0.35)] group-hover:scale-105 transition-all duration-500 ease-apple ${
@@ -119,8 +105,8 @@ export default function Header() {
                 return (
                   <a
                     key={s.id}
-                    href={isLanding ? `#${s.id}` : `/#${s.id}`}
-                    onClick={(e) => handleAnchor(e, s.id)}
+                    href={anchorHref(s.id)}
+                    onClick={(e) => onAnchorClick(e, s.id)}
                     className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
                       active
                         ? 'text-primary'
@@ -151,7 +137,7 @@ export default function Header() {
                 size="sm"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 ease-apple active:scale-[0.97] shadow-[0_0_18px_rgba(0,217,255,0.3)] hover:shadow-[0_0_24px_rgba(0,217,255,0.45)] font-semibold rounded-full px-5 h-9"
               >
-                <a href={isLanding ? '#booking' : '/#booking'} onClick={(e) => handleAnchor(e, 'booking')}>
+                <a href={anchorHref('booking')} onClick={(e) => onAnchorClick(e, 'booking')}>
                   Book a Visit
                 </a>
               </Button>
@@ -187,8 +173,8 @@ export default function Header() {
               return (
                 <a
                   key={s.id}
-                  href={isLanding ? `#${s.id}` : `/#${s.id}`}
-                  onClick={(e) => handleAnchor(e, s.id)}
+                  href={anchorHref(s.id)}
+                  onClick={(e) => onAnchorClick(e, s.id)}
                   style={{
                     transitionDelay: mobileMenuOpen ? `${100 + i * 60}ms` : '0ms',
                   }}
@@ -224,7 +210,7 @@ export default function Header() {
               size="lg"
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] font-semibold rounded-2xl py-6 shadow-[0_0_24px_rgba(0,217,255,0.35)]"
             >
-              <a href={isLanding ? '#booking' : '/#booking'} onClick={(e) => handleAnchor(e, 'booking')}>
+              <a href={anchorHref('booking')} onClick={(e) => onAnchorClick(e, 'booking')}>
                 Book a Visit
               </a>
             </Button>
