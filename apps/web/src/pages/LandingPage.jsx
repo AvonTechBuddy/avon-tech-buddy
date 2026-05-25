@@ -438,7 +438,6 @@ function HowItWorksSection() {
 // Section: Pricing
 // ─────────────────────────────────────────────────────────────
 function PricingCard({ plan, price, period, features, cta, featured }) {
-  const isQuote = cta === 'Request a Quote';
   return (
     <motion.div
       variants={itemFade}
@@ -479,31 +478,16 @@ function PricingCard({ plan, price, period, features, cta, featured }) {
         </ul>
 
         <div className="mt-auto">
-          {isQuote ? (
-            <Button
-              asChild
-              className={`w-full h-12 text-sm font-semibold transition-all duration-300 ease-apple active:scale-[0.98] rounded-full ${
-                featured
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                  : 'bg-white/[0.04] text-foreground border border-white/[0.08] hover:bg-white/[0.08]'
-              }`}
-            >
-              <a href="mailto:yourbuddy@avontechbuddy.com?subject=PC Build & Upgrade Help Quote Request">
-                {cta}
-              </a>
-            </Button>
-          ) : (
-            <Button
-              asChild
-              className={`w-full h-12 text-sm font-semibold transition-all duration-300 ease-apple active:scale-[0.98] rounded-full ${
-                featured
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(0,217,255,0.25)]'
-                  : 'bg-white/[0.04] text-foreground border border-white/[0.08] hover:bg-white/[0.08]'
-              }`}
-            >
-              <a href="#booking" onClick={smoothTo('booking')}>{cta}</a>
-            </Button>
-          )}
+          <Button
+            asChild
+            className={`w-full h-12 text-sm font-semibold transition-all duration-300 ease-apple active:scale-[0.98] rounded-full ${
+              featured
+                ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(0,217,255,0.25)]'
+                : 'bg-white/[0.04] text-foreground border border-white/[0.08] hover:bg-white/[0.08]'
+            }`}
+          >
+            <a href="#booking" onClick={smoothTo('booking')}>{cta}</a>
+          </Button>
         </div>
       </div>
     </motion.div>

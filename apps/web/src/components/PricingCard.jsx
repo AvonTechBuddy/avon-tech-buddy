@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button.jsx';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAnchorNav } from '@/hooks/useAnchorNav';
 
 const PricingCard = ({ plan, price, period, features, cta, featured }) => {
-  const isQuoteButton = cta === 'Request a Quote';
+  const { handleAnchor, anchorHref } = useAnchorNav();
 
   return (
     <motion.div
@@ -59,15 +59,9 @@ const PricingCard = ({ plan, price, period, features, cta, featured }) => {
                 : 'bg-muted text-foreground hover:bg-primary hover:text-primary-foreground border border-border/50 hover:border-primary'
             }`}
           >
-            {isQuoteButton ? (
-              <a href="mailto:yourbuddy@avontechbuddy.com?subject=PC Build & Upgrade Help Quote Request">
-                {cta}
-              </a>
-            ) : (
-              <Link to="/booking">
-                {cta}
-              </Link>
-            )}
+            <a href={anchorHref('booking')} onClick={(e) => handleAnchor(e, 'booking')}>
+              {cta}
+            </a>
           </Button>
         </div>
       </div>
