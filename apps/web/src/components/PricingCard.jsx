@@ -1,12 +1,25 @@
 
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button.jsx';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useAnchorNav } from '@/hooks/useAnchorNav';
+import { scrollToBooking } from '@/lib/scrollToBooking';
 
 const PricingCard = ({ plan, price, period, features, cta, featured }) => {
-  const { handleAnchor, anchorHref } = useAnchorNav();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleCtaClick = (e) => {
+    if (document.getElementById('booking')) {
+      scrollToBooking(e);
+      return;
+    }
+    e.preventDefault();
+    if (pathname !== '/') {
+      navigate('/#booking');
+    }
+  };
 
   return (
     <motion.div
@@ -51,17 +64,16 @@ const PricingCard = ({ plan, price, period, features, cta, featured }) => {
 
         <div className="mt-auto relative z-10">
           <Button
-            asChild
+            type="button"
             size="lg"
-            className={`w-full text-base font-semibold transition-all duration-200 active:scale-[0.98] ${
+            onClick={handleCtaClick}
+            className={`w-full text-base font-semibold transition-all duration-200 active:scale-[0.98] cursor-pointer ${
               featured
                 ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20'
                 : 'bg-muted text-foreground hover:bg-primary hover:text-primary-foreground border border-border/50 hover:border-primary'
             }`}
           >
-            <a href={anchorHref('booking')} onClick={(e) => handleAnchor(e, 'booking')}>
-              {cta}
-            </a>
+            {cta}
           </Button>
         </div>
       </div>

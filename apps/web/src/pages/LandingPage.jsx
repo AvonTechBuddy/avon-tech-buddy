@@ -479,14 +479,19 @@ function PricingCard({ plan, price, period, features, cta, featured }) {
 
         <div className="mt-auto">
           <Button
-            asChild
-            className={`w-full h-12 text-sm font-semibold transition-all duration-300 ease-apple active:scale-[0.98] rounded-full ${
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              window.history.pushState(null, '', '#booking');
+            }}
+            className={`w-full h-12 text-sm font-semibold transition-all duration-300 ease-apple active:scale-[0.98] rounded-full cursor-pointer ${
               featured
                 ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(0,217,255,0.25)]'
                 : 'bg-white/[0.04] text-foreground border border-white/[0.08] hover:bg-white/[0.08]'
             }`}
           >
-            <a href="#booking" onClick={smoothTo('booking')}>{cta}</a>
+            {cta}
           </Button>
         </div>
       </div>
