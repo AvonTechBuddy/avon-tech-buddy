@@ -1,8 +1,8 @@
 {
-  "installCommand": "npm install",
-  "buildCommand": "npm run build --prefix apps/web",
-  "outputDirectory": "dist/apps/web",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "apps/web/dist",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
   ]
 }

@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 const CLEAN_CONTENT_REGEX = {
 	comments: /\/\*[\s\S]*?\*\/|\/\/.*$/gm,
@@ -163,8 +164,8 @@ function main() {
 	}
 
 	if (pages.length === 0) {
-		console.error('❌ No pages with Helmet components found!');
-		process.exit(1);
+		console.warn('No pages with Helmet components found; skipping llms.txt generation.');
+		process.exit(0);
 	}
 
 
@@ -175,7 +176,7 @@ function main() {
 	fs.writeFileSync(outputPath, llmsTxtContent, 'utf8');
 }
 
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url);
 
 if (isMainModule) {
 	main();
