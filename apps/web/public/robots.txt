@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://avontechbuddy.com/sitemap.xml
