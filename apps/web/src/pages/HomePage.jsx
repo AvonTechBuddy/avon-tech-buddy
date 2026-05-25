@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ServiceCard from '@/components/ServiceCard.jsx';
 import PricingCard from '@/components/PricingCard.jsx';
 import TrustItem from '@/components/TrustItem.jsx';
 import StepCard from '@/components/StepCard.jsx';
+import BookingSection from '@/components/BookingSection.jsx';
 import { 
   Monitor, 
   Wifi, 
@@ -223,9 +223,9 @@ const HomePage = () => {
                 size="lg"
                 className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-200 active:scale-[0.98] text-base md:text-lg px-8"
               >
-                <Link to="/book">
+                <a href="#booking">
                   Book Now
-                </Link>
+                </a>
               </Button>
               <Button 
                 asChild
@@ -450,6 +450,8 @@ const HomePage = () => {
         </div>
       </section>
 
+      <BookingSection />
+
       {/* CTA Band */}
       <section className="bg-gradient-to-r from-accent/10 via-secondary/10 to-success/10 border-y border-border py-16">
         <div className="max-w-4xl mx-auto container-padding text-center">
@@ -468,9 +470,9 @@ const HomePage = () => {
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-200 active:scale-[0.98] text-lg px-10"
             >
-              <Link to="/book">
+              <a href="#booking">
                 Book Now
-              </Link>
+              </a>
             </Button>
           </motion.div>
         </div>
