@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAnchorNav } from '@/hooks/useAnchorNav';
+import BrandLogo from '@/components/BrandLogo.jsx';
 
 const QUICK_LINKS = [
   { id: 'services', label: 'Services' },
@@ -26,11 +27,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg">AT</span>
-              </div>
-              <span className="text-lg font-bold text-card-foreground">Avon Tech Buddy</span>
+            <div className="mb-4">
+              <BrandLogo
+                size="sm"
+                textClassName="font-bold text-card-foreground"
+              />
             </div>
             <p className="text-sm text-muted-foreground">
               Your trusted local tech support partner in Avon, Indiana.

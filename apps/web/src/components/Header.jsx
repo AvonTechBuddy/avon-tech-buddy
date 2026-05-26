@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button.jsx';
 import { Menu, X, Phone } from 'lucide-react';
 import { useAnchorNav } from '@/hooks/useAnchorNav';
+import BrandLogo from '@/components/BrandLogo.jsx';
 
 const SECTIONS = [
   { id: 'home',         label: 'Home' },
@@ -84,18 +85,15 @@ export default function Header() {
             <a
               href={isLanding ? '#home' : '/'}
               onClick={(e) => isLanding ? onAnchorClick(e, 'home') : null}
-              className="flex items-center gap-3 group"
+              className="group min-w-0 shrink-0"
+              aria-label="Avon Tech Buddy home"
             >
-              <div className={`rounded-xl bg-primary flex items-center justify-center shadow-[0_0_18px_rgba(0,217,255,0.35)] group-hover:scale-105 transition-all duration-500 ease-apple ${
-                scrolled ? 'w-8 h-8' : 'w-9 h-9'
-              }`}>
-                <span className={`text-primary-foreground font-extrabold tracking-tight transition-all duration-500 ${
-                  scrolled ? 'text-sm' : 'text-base'
-                }`}>AT</span>
-              </div>
-              <span className="text-base md:text-lg font-semibold text-foreground tracking-tight hidden sm:inline">
-                Avon Tech Buddy
-              </span>
+              <BrandLogo
+                size={scrolled ? 'sm' : 'md'}
+                showText
+                textClassName="hidden sm:inline"
+                imageClassName="group-hover:scale-105 transition-transform duration-500 ease-apple shadow-[0_0_14px_rgba(0,217,255,0.25)]"
+              />
             </a>
 
             {/* Desktop nav */}
